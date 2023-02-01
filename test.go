@@ -9,8 +9,8 @@ func twoSum(arr []int, target int) []int {
 	for i, val := range arr {
 		remainder := target - val
 
-		if _, ok := seen[remainder]; ok {
-			return []int{seen[remainder], i}
+		if k, ok := seen[remainder]; ok {
+			return []int{k, i}
 		}
 
 		seen[val] = i

@@ -1,3 +1,3 @@
-module github.com/aliyeysides/learning-go
+module learning-go
 
 go 1.19

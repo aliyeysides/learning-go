@@ -1,7 +1,7 @@
 package main
 
 import (
-  "github.com/aliyeysides/learning-go/linkedlist"
+  "learning-go/linkedlist"
   "fmt"
 )
 
@@ -19,7 +19,6 @@ func twoSum(arr []int, target int) []int {
 	}
 	return nil
 }
-
 
 func addTwoNumbers(l1 *ListNode, l2 *ListNode) *ListNode {
 	carry, dummy := 0, new(ListNode)

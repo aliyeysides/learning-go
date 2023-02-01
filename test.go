@@ -10,7 +10,7 @@ func twoSum(arr []int, target int) []int {
 		remainder := target - val
 
 		if _, ok := seen[remainder]; ok {
-			return []int{remainder, i}
+			return []int{seen[remainder], i}
 		}
 
 		seen[val] = i

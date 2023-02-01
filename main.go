@@ -1,8 +1,7 @@
-// package main
 package main
 
 import (
-  "github.com/aliyeysides/learning-go/vendor/linkedlist"
+  "github.com/aliyeysides/learning-go/linkedlist"
   "fmt"
 )
 

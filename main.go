@@ -20,8 +20,8 @@ func twoSum(arr []int, target int) []int {
 	return nil
 }
 
-func addTwoNumbers(l1 *ListNode, l2 *ListNode) *ListNode {
-	carry, dummy := 0, new(ListNode)
+func addTwoNumbers(l1 *linkedlist.ListNode, l2 *linkedlist.ListNode) *linkedlist.ListNode {
+	carry, dummy := 0, new(linkedlist.ListNode)
 
 	for node := dummy; l1 != nil || l2 != nil || carry > 0; node = node.Next {
 		if l1 != nil {
@@ -33,7 +33,7 @@ func addTwoNumbers(l1 *ListNode, l2 *ListNode) *ListNode {
 			l2 = l2.Next
 		}
 
-		node.Next = &ListNode{Val: carry % 10}
+		node.Next = &linkedlist.ListNode{Val: carry % 10}
 		carry /= 10
 	}
 	return dummy.Next
@@ -43,17 +43,17 @@ func main() {
 	// arr := []int{3, 4, 4}
 	// target := 7
 	// res := twoSum(arr, target)
-  l1 := new(ListNode)
-  l2 := new(ListNode)
+  l1 := new(linkedlist.ListNode)
+  l2 := new(linkedlist.ListNode)
 
-  Insert(l1, 2)
-  Insert(l1, 4)
-  Insert(l1, 3)
+  linkedlist.Insert(l1, 2)
+  linkedlist.Insert(l1, 4)
+  linkedlist.Insert(l1, 3)
 
-  Insert(l2, 5)
-  Insert(l2, 6)
-  Insert(l2, 4)
+  linkedlist.Insert(l2, 5)
+  linkedlist.Insert(l2, 6)
+  linkedlist.Insert(l2, 4)
 
-  res = addTwoNumbers(l1, l2)
+  res := addTwoNumbers(l1, l2)
 	fmt.Println(res)
 }

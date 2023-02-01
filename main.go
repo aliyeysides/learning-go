@@ -1,8 +1,8 @@
 package main
 
 import (
-  "learning-go/linkedlist"
-  "fmt"
+	"fmt"
+	"learning-go/linkedlist"
 )
 
 func twoSum(arr []int, target int) []int {
@@ -40,20 +40,20 @@ func addTwoNumbers(l1 *linkedlist.ListNode, l2 *linkedlist.ListNode) *linkedlist
 }
 
 func main() {
-	// arr := []int{3, 4, 4}
-	// target := 7
-	// res := twoSum(arr, target)
-  l1 := new(linkedlist.ListNode)
-  l2 := new(linkedlist.ListNode)
+	l1 := new(linkedlist.ListNode)
+	l2 := new(linkedlist.ListNode)
 
-  linkedlist.Insert(l1, 2)
-  linkedlist.Insert(l1, 4)
-  linkedlist.Insert(l1, 3)
+	linkedlist.Insert(l1, 2)
+	linkedlist.Insert(l1, 4)
+	linkedlist.Insert(l1, 3)
 
-  linkedlist.Insert(l2, 5)
-  linkedlist.Insert(l2, 6)
-  linkedlist.Insert(l2, 4)
+	linkedlist.Insert(l2, 5)
+	linkedlist.Insert(l2, 6)
+	linkedlist.Insert(l2, 4)
 
-  res := addTwoNumbers(l1, l2)
-	fmt.Println(res)
+	res := addTwoNumbers(l1, l2)
+  
+  for node := res; res != nil; node = node.Next {
+    fmt.Println(node.Val)
+  }
 }

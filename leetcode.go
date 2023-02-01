@@ -2,7 +2,7 @@
 package main
 
 import (
-  "linkedlist" 
+  "github.com/aliyeysides/learning-go/vendor/linkedlist"
   "fmt"
 )
 

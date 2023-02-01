@@ -1,3 +1,4 @@
+// Main - solutions to some leetcode problems with Go.
 package main
 
 import (

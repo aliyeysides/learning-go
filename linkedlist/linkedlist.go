@@ -10,5 +10,6 @@ type ListNode struct {
 // Insert - sets Next value of node with val
 func Insert(node *ListNode, val int) *ListNode {
   node.Next = &ListNode{Val: val}
-  return node
+  return node.Next
 }
+

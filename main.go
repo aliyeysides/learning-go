@@ -21,8 +21,11 @@ func twoSum(arr []int, target int) []int {
 	return nil
 }
 
-func addTwoNumbers(l1 *linkedlist.ListNode, l2 *linkedlist.ListNode) *linkedlist.ListNode {
-	carry, dummy := 0, new(linkedlist.ListNode)
+// ListNode - type alias for linkedlist.ListNode
+type ListNode = linkedlist.ListNode
+
+func addTwoNumbers(l1 *ListNode, l2 *ListNode) *ListNode {
+	carry, dummy := 0, new(ListNode)
 
 	for node := dummy; l1 != nil || l2 != nil || carry > 0; node = node.Next {
 		if l1 != nil {
@@ -34,15 +37,15 @@ func addTwoNumbers(l1 *linkedlist.ListNode, l2 *linkedlist.ListNode) *linkedlist
 			l2 = l2.Next
 		}
 
-		node.Next = &linkedlist.ListNode{Val: carry % 10}
+		node.Next = &ListNode{Val: carry % 10}
 		carry /= 10
 	}
 	return dummy.Next
 }
 
 func main() {
-	l1 := new(linkedlist.ListNode)
-	l2 := new(linkedlist.ListNode)
+	l1 := new(ListNode)
+	l2 := new(ListNode)
 
 	linkedlist.Insert(l1, 2)
 	linkedlist.Insert(l1, 4)
@@ -53,8 +56,8 @@ func main() {
 	linkedlist.Insert(l2, 4)
 
 	res := addTwoNumbers(l1, l2)
-  
-  for node := res; res != nil; node = node.Next {
-    fmt.Println(node.Val)
-  }
+
+	for node := res; node.Next != nil; node = node.Next {
+		fmt.Println(node.Val)
+	}
 }

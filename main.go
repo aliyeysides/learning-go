@@ -46,25 +46,30 @@ func addTwoNumbers(l1 *ListNode, l2 *ListNode) *ListNode {
 }
 
 // https://leetcode.com/problems/longest-substring-without-repeating-characters/
-// func lengthOfLongestSubstring(s string) int {
-//   // todo 
-// }
+func lengthOfLongestSubstring(s string) int {
+	n := len(s)
+	seen := make(map[rune]int, n)
+	record, start := 0, 0
+
+  for i, c := range s {
+    if _, ok := seen[c]; ok == true {
+      record = max(record, i - start)
+      start = seen[c] + 1
+    }
+    seen[c] = i
+  }
+	return record
+}
+
+func max(x, y int) int {
+  if x > y {
+    return x
+  }
+  return y
+}
 
 func main() {
-	l1 := new(ListNode)
-	l2 := new(ListNode)
-
-	linkedlist.Insert(l1, 2)
-	linkedlist.Insert(l1, 4)
-	linkedlist.Insert(l1, 3)
-
-	linkedlist.Insert(l2, 5)
-	linkedlist.Insert(l2, 6)
-	linkedlist.Insert(l2, 4)
-
-	res := addTwoNumbers(l1, l2)
-
-	for node := res; node.Next != nil; node = node.Next {
-		fmt.Println(node.Val)
-	}
+	s := "abcabcbb"
+	record := lengthOfLongestSubstring(s)
+	fmt.Println(record)
 }

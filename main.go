@@ -51,21 +51,22 @@ func lengthOfLongestSubstring(s string) int {
 	seen := make(map[rune]int, n)
 	record, start := 0, 0
 
-  for i, c := range s {
-    if _, ok := seen[c]; ok == true {
-      record = max(record, i - start)
-      start = seen[c] + 1
-    }
-    seen[c] = i
-  }
+	for i, c := range s {
+		if _, ok := seen[c]; ok == true && seen[c] >= start {
+			start = seen[c] + 1
+		} else {
+			record = max(record, i-start+1)
+		}
+		seen[c] = i
+	}
 	return record
 }
 
 func max(x, y int) int {
-  if x > y {
-    return x
-  }
-  return y
+	if x > y {
+		return x
+	}
+	return y
 }
 
 func main() {

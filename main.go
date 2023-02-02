@@ -6,6 +6,7 @@ import (
 	"learning-go/linkedlist"
 )
 
+// https://leetcode.com/problems/two-sum/
 func twoSum(arr []int, target int) []int {
 	seen := make(map[int]int)
 
@@ -24,6 +25,7 @@ func twoSum(arr []int, target int) []int {
 // ListNode - type alias for linkedlist.ListNode
 type ListNode = linkedlist.ListNode
 
+// https://leetcode.com/problems/add-two-numbers/
 func addTwoNumbers(l1 *ListNode, l2 *ListNode) *ListNode {
 	carry, dummy := 0, new(ListNode)
 
@@ -42,6 +44,11 @@ func addTwoNumbers(l1 *ListNode, l2 *ListNode) *ListNode {
 	}
 	return dummy.Next
 }
+
+// https://leetcode.com/problems/longest-substring-without-repeating-characters/
+// func lengthOfLongestSubstring(s string) int {
+//   // todo 
+// }
 
 func main() {
 	l1 := new(ListNode)

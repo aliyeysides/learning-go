@@ -4,7 +4,7 @@ package main
 import (
 	"fmt"
 	"learning-go/linkedlist"
-  "learning-go/utils"
+	"learning-go/utils"
 )
 
 // https://leetcode.com/problems/two-sum/
@@ -82,8 +82,34 @@ func maxArea(height []int) int {
 	return record
 }
 
+// https://leetcode.com/problems/longest-palindromic-substring/
+func longestPalindrome(s string) string {
+	record, n := "", len(s)
+	for i := range s {
+		l, r := i, i
+		for l >= 0 && r < n && s[l] == s[r] {
+			txt := s[l : r+1]
+			if len(txt) > len(record) {
+				record = txt
+			}
+			l--
+			r++
+		}
+		l, r = i, i+1
+		for l >= 0 && r < n && s[l] == s[r] {
+			txt := s[l : r+1]
+			if len(txt) > len(record) {
+				record = txt
+			}
+			l--
+			r++
+		}
+	}
+	return record
+}
+
 func main() {
-	arg := []int{1, 8, 6, 2, 5, 4, 8, 3, 7}
-	res := maxArea(arg)
+	arg := "babad"
+	res := longestPalindrome(arg)
 	fmt.Println(res)
 }

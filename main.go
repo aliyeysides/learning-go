@@ -69,8 +69,34 @@ func max(x, y int) int {
 	return y
 }
 
+func min(x, y int) int {
+  if x > y {
+    return y
+  }
+  return x
+}
+
+// https://leetcode.com/problems/container-with-most-water/
+func maxArea(height []int) int {
+  n := len(height)
+  record, l, r := 0, 0, n - 1
+
+  for l < r {
+    minH := min(height[l], height[r])
+    width := r - l
+    area := minH * width
+    record = max(record, area)
+    if height[l] < height[r] {
+      l++
+    } else {
+      r--
+    }
+  }
+  return record
+}
+
 func main() {
-	s := "abcabcbb"
-	record := lengthOfLongestSubstring(s)
-	fmt.Println(record)
+  arg := []int{1,8,6,2,5,4,8,3,7}
+  res := maxArea(arg)
+	fmt.Println(res)
 }

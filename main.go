@@ -4,6 +4,7 @@ package main
 import (
 	"fmt"
 	"learning-go/linkedlist"
+  "learning-go/utils"
 )
 
 // https://leetcode.com/problems/two-sum/
@@ -55,48 +56,34 @@ func lengthOfLongestSubstring(s string) int {
 		if _, ok := seen[c]; ok == true && seen[c] >= start {
 			start = seen[c] + 1
 		} else {
-			record = max(record, i-start+1)
+			record = utils.Max(record, i-start+1)
 		}
 		seen[c] = i
 	}
 	return record
 }
 
-func max(x, y int) int {
-	if x > y {
-		return x
-	}
-	return y
-}
-
-func min(x, y int) int {
-  if x > y {
-    return y
-  }
-  return x
-}
-
 // https://leetcode.com/problems/container-with-most-water/
 func maxArea(height []int) int {
-  n := len(height)
-  record, l, r := 0, 0, n - 1
+	n := len(height)
+	record, l, r := 0, 0, n-1
 
-  for l < r {
-    minH := min(height[l], height[r])
-    width := r - l
-    area := minH * width
-    record = max(record, area)
-    if height[l] < height[r] {
-      l++
-    } else {
-      r--
-    }
-  }
-  return record
+	for l < r {
+		minH := utils.Min(height[l], height[r])
+		width := r - l
+		area := minH * width
+		record = utils.Max(record, area)
+		if height[l] < height[r] {
+			l++
+		} else {
+			r--
+		}
+	}
+	return record
 }
 
 func main() {
-  arg := []int{1,8,6,2,5,4,8,3,7}
-  res := maxArea(arg)
+	arg := []int{1, 8, 6, 2, 5, 4, 8, 3, 7}
+	res := maxArea(arg)
 	fmt.Println(res)
 }

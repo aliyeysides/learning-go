@@ -1,6 +1,8 @@
 // Package utils - general utility functions
 package utils
 
+import "strings"
+
 func Max(x, y int) int {
 	if x > y {
 		return x
@@ -22,4 +24,15 @@ func comma(s string) string {
     return s
   }
   return comma(s[:n-3]) + "," + s[n-3:]
+}
+
+// basename removes directory components and a .suffix.
+// e.g., a => a, a.go => a, a/b/c/go => c, a/b.c.go => b.c
+func basename(s string) string {
+  slash := strings.LastIndex(s, "/") // --1 if "/" not found
+  s = s[slash+1:]
+  if dot := strings.LastIndex(s, "."); dot >= 0 {
+    s = s[:dot]
+  }
+  return s
 }

@@ -9,11 +9,11 @@ type ListNode struct {
 
 // Insert - sets Next value of node with val
 func Insert(val []int) *ListNode {
-  dummy := new(ListNode)
+  dummy := &ListNode{Val: 0, Next: nil }
   head := dummy
-	for val := range val {
-		head.Next = &ListNode{Val: val}
+	for v := range val {
+		head.Next = &ListNode{Val: v}
 		head = head.Next
 	}
-  return dummy
+  return dummy.Next
 }

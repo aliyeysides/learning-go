@@ -115,9 +115,9 @@ func threeSum(nums []int) [][]int {
 	res := make([][]int, 0)
 	sort.Ints(nums)
 	for i := range nums {
-    if i > 0 && nums[i] == nums[i-1] {
-      continue
-    }
+		if i > 0 && nums[i] == nums[i-1] {
+			continue
+		}
 		l, r := i+1, n-1
 		for l < r {
 			sum := nums[i] + nums[l] + nums[r]
@@ -142,11 +142,29 @@ func threeSum(nums []int) [][]int {
 	return res
 }
 
+// https://leetcode.com/problems/remove-nth-node-from-end-of-list/
+// func removeNthFromEndHelper(head *ListNode, n int) {
+//
+// }
+func removeHelper(head *ListNode, n int) (*ListNode, int) {
+	if head == nil {
+		level := 0
+		return head, level
+	}
+	prev, i := removeHelper(head.Next, n)
+	if i + 1 == n {
+		head.Next = prev.Next
+	}
+	return head, i + 1
+}
+
+func removeNthFromEnd(head *ListNode, n int) *ListNode {
+	res, _ := removeHelper(head, n)
+	return res
+}
+
 func main() {
-	arg := []int{-1, 0, 1, 2, -1, -4}
-	// arg := []int{0,1,1}
-	// arg := []int{0,0,0}
-	// res := threeSum(arg)
-	res := threeSum(arg)
+	arg := linkedlist.Insert(([]int{1, 2, 3, 4, 5}))
+	res := removeNthFromEnd(arg, 2)
 	fmt.Println(res)
 }

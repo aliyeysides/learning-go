@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"learning-go/linkedlist"
 	"learning-go/utils"
+	"sort"
 )
 
 // https://leetcode.com/problems/two-sum/
@@ -112,18 +113,28 @@ func longestPalindrome(s string) string {
 func threeSum(nums []int) [][]int {
 	n := len(nums)
 	res := make([][]int, 0)
+	sort.Ints(nums)
 	for i := range nums {
+    if i > 0 && nums[i] == nums[i-1] {
+      continue
+    }
 		l, r := i+1, n-1
 		for l < r {
 			sum := nums[i] + nums[l] + nums[r]
 			if sum == 0 {
 				ans := []int{nums[i], nums[l], nums[r]}
 				res = append(res, ans)
-				fmt.Println(res)
-			}
-			if sum > 0 {
+				l++
 				r--
-			} else {
+				for l < r && nums[l] == nums[l-1] {
+					l++
+				}
+				for l < r && nums[r] == nums[r+1] {
+					r--
+				}
+			} else if sum > 0 {
+				r--
+			} else if sum < 0 {
 				l++
 			}
 		}

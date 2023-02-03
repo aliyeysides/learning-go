@@ -108,8 +108,34 @@ func longestPalindrome(s string) string {
 	return record
 }
 
+// https://leetcode.com/problems/3sum/
+func threeSum(nums []int) {
+	// iterate over the []int and create l,r pointers
+	// let l = i+1 and r = n
+	// if the sum of i, l, r equals 0
+	// res := new([][]int)
+	n := len(nums)
+	res := []int{}
+	for i := range nums {
+		l, r := i+1, n-1
+		for l < r {
+			sum := nums[i] + nums[l] + nums[r]
+			fmt.Println("sum", sum)
+			if sum == 0 {
+				fmt.Println(nums[i], nums[l], nums[r])
+				res = append(res, nums[i], nums[l], nums[r])
+			}
+			l++
+			r--
+		}
+	}
+}
+
 func main() {
-	arg := "babad"
-	res := longestPalindrome(arg)
-	fmt.Println(res)
+	arg := []int{-1, 0, 1, 2, -1, -4}
+	// arg := []int{0,1,1}
+	// arg := []int{0,0,0}
+	// res := threeSum(arg)
+	threeSum(arg)
+	// fmt.Println(res)
 }

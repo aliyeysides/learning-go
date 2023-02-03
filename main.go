@@ -147,10 +147,10 @@ func removeHelper(head *ListNode, n int) (*ListNode, int) {
 	if head == nil {
 		return head, 0
 	}
-  i := 0
+	i := 0
 	head.Next, i = removeHelper(head.Next, n)
-	if i + 1 == n {
-    return head.Next, i + 1
+	if i+1 == n {
+		return head.Next, i + 1
 	}
 	return head, i + 1
 }
@@ -160,8 +160,34 @@ func removeNthFromEnd(head *ListNode, n int) *ListNode {
 	return res
 }
 
+// https://leetcode.com/problems/valid-parentheses/
+func isValid(s string) bool {
+	rules := map[rune]rune{
+		'(': ')',
+		'[': ']',
+		'{': '}',
+	}
+
+	stack := []rune{}
+	for _, char := range s {
+		if v, ok := rules[char]; ok {
+			stack = append(stack, v)
+		} else {
+			var top rune
+			top, stack = stack[len(stack)-1], stack[:len(stack)-1]
+			isMatch := rules[top] == char
+      fmt.Println(isMatch, rules[top], char)
+			if isMatch {
+				continue
+			} else {
+				return false
+			}
+		}
+	}
+	return true
+}
+
 func main() {
-	arg := linkedlist.Insert(([]int{1, 2, 3, 4, 5}))
-	res := removeNthFromEnd(arg, 2)
-	fmt.Println(res)
+	arg := "()[]{}"
+	fmt.Println(isValid(arg))
 }

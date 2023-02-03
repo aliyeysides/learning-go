@@ -145,12 +145,12 @@ func threeSum(nums []int) [][]int {
 // https://leetcode.com/problems/remove-nth-node-from-end-of-list/
 func removeHelper(head *ListNode, n int) (*ListNode, int) {
 	if head == nil {
-		level := 0
-		return head, level
+		return head, 0
 	}
-	prev, i := removeHelper(head.Next, n)
+  i := 0
+	head.Next, i = removeHelper(head.Next, n)
 	if i + 1 == n {
-		head.Next = prev.Next
+    return head.Next, i + 1
 	}
 	return head, i + 1
 }

@@ -109,24 +109,26 @@ func longestPalindrome(s string) string {
 }
 
 // https://leetcode.com/problems/3sum/
-func threeSum(nums []int) {
+func threeSum(nums []int) [][]int {
 	n := len(nums)
-	res := []int{}
+	res := make([][]int, 0)
 	for i := range nums {
 		l, r := i+1, n-1
 		for l < r {
 			sum := nums[i] + nums[l] + nums[r]
 			if sum == 0 {
-				res = append(res, nums[i], nums[l], nums[r])
+				ans := []int{nums[i], nums[l], nums[r]}
+				res = append(res, ans)
+				fmt.Println(res)
 			}
-      if sum > 0 {
-        r--
-      } else {
-        l++
-      }
+			if sum > 0 {
+				r--
+			} else {
+				l++
+			}
 		}
 	}
-  return res
+	return res
 }
 
 func main() {
@@ -134,6 +136,6 @@ func main() {
 	// arg := []int{0,1,1}
 	// arg := []int{0,0,0}
 	// res := threeSum(arg)
-	threeSum(arg)
-	// fmt.Println(res)
+	res := threeSum(arg)
+	fmt.Println(res)
 }

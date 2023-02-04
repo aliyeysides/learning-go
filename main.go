@@ -175,34 +175,35 @@ func isValid(s string) bool {
 		} else if len(stack) == 0 || rules[stack[len(stack)-1]] != char {
 			return false
 		} else {
-      stack = stack[:len(stack)-1]
-    }
+			stack = stack[:len(stack)-1]
+		}
 	}
 	return len(stack) == 0
 }
 
 // https://leetcode.com/problems/merge-two-sorted-lists/
 func mergeTwoLists(list1 *ListNode, list2 *ListNode) *ListNode {
-  dummy := new(ListNode)
-  for node := dummy; list1 != nil || list2 != nil; node = node.Next {
-    if list1.Val > list2.Val {
-      dummy.Next = list2
-      list2 = list2.Next
-    } else {
-      dummy.Next = list1
-      list1 = list1.Next
-    }
+	dummy := new(ListNode)
+  node := dummy
+	for node = dummy; list1 != nil && list2 != nil; node = node.Next {
+		if list1.Val >= list2.Val {
+			node.Next = list2
+			list2 = list2.Next
+		} else {
+			node.Next = list1
+			list1 = list1.Next
+		}
+	}
+  if list1 != nil {
+    node.Next = list1
+  } else {
+    node.Next = list2
   }
-  return dummy.Next
+	return dummy.Next
 }
 
 func main() {
- //  l1 := new(ListNode)
- //  
- //  l2 := new(ListNode)
-	// fmt.Println(mergeTwoLists(l1, l2))
-  res := linkedlist.InsertList([]int{2, 4, 3})
-  fmt.Println("res", res)
-  fmt.Println("res", res.Next)
-  fmt.Println("res", res.Next.Next)
+	l1 := linkedlist.InsertList([]int{1, 2, 4})
+	l2 := linkedlist.InsertList([]int{1, 3, 4})
+	fmt.Println(mergeTwoLists(l1, l2))
 }

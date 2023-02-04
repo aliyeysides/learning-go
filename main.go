@@ -170,21 +170,15 @@ func isValid(s string) bool {
 
 	stack := []rune{}
 	for _, char := range s {
-		if v, ok := rules[char]; ok {
-			stack = append(stack, v)
+		if _, ok := rules[char]; ok {
+			stack = append(stack, char)
+		} else if len(stack) == 0 || rules[stack[len(stack)-1]] != char {
+			return false
 		} else {
-			var top rune
-			top, stack = stack[len(stack)-1], stack[:len(stack)-1]
-			isMatch := rules[top] == char
-      fmt.Println(isMatch, rules[top], char)
-			if isMatch {
-				continue
-			} else {
-				return false
-			}
-		}
+      stack = stack[:len(stack)-1]
+    }
 	}
-	return true
+	return len(stack) == 0
 }
 
 func main() {

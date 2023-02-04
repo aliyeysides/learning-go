@@ -7,13 +7,13 @@ type ListNode struct {
 	Next *ListNode
 }
 
-// Insert - sets Next value of node with val
-func Insert(val []int) *ListNode {
-  dummy := &ListNode{Val: 0, Next: nil }
-  head := dummy
-	for v := range val {
-		head.Next = &ListNode{Val: v}
-		head = head.Next
-	}
+// InsertList - inserts values of a []int into LinkedList
+func InsertList(arr []int) *ListNode {
+  n := len(arr)
+  dummy := new(ListNode)
+  for i, node := 0, dummy; i < n; node = node.Next {
+    node.Next = &ListNode{arr[i], node}
+    i++
+  }
   return dummy.Next
 }

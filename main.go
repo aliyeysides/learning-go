@@ -181,7 +181,28 @@ func isValid(s string) bool {
 	return len(stack) == 0
 }
 
+// https://leetcode.com/problems/merge-two-sorted-lists/
+func mergeTwoLists(list1 *ListNode, list2 *ListNode) *ListNode {
+  dummy := new(ListNode)
+  for node := dummy; list1 != nil || list2 != nil; node = node.Next {
+    if list1.Val > list2.Val {
+      dummy.Next = list2
+      list2 = list2.Next
+    } else {
+      dummy.Next = list1
+      list1 = list1.Next
+    }
+  }
+  return dummy.Next
+}
+
 func main() {
-	arg := "()[]{}"
-	fmt.Println(isValid(arg))
+ //  l1 := new(ListNode)
+ //  
+ //  l2 := new(ListNode)
+	// fmt.Println(mergeTwoLists(l1, l2))
+  res := linkedlist.InsertList([]int{2, 4, 3})
+  fmt.Println("res", res)
+  fmt.Println("res", res.Next)
+  fmt.Println("res", res.Next.Next)
 }

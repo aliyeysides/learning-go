@@ -168,7 +168,7 @@ func isValid(s string) bool {
 		'{': '}',
 	}
 
-	stack := []rune{}
+	stack := make([]rune, 0)
 	for _, char := range s {
 		if _, ok := rules[char]; ok {
 			stack = append(stack, char)
@@ -184,8 +184,8 @@ func isValid(s string) bool {
 // https://leetcode.com/problems/merge-two-sorted-lists/
 func mergeTwoLists(list1 *ListNode, list2 *ListNode) *ListNode {
 	dummy := new(ListNode)
-  node := dummy
-	for node = dummy; list1 != nil && list2 != nil; node = node.Next {
+	node := dummy
+	for list1 != nil && list2 != nil {
 		if list1.Val >= list2.Val {
 			node.Next = list2
 			list2 = list2.Next
@@ -193,12 +193,13 @@ func mergeTwoLists(list1 *ListNode, list2 *ListNode) *ListNode {
 			node.Next = list1
 			list1 = list1.Next
 		}
+		node = node.Next
 	}
-  if list1 != nil {
-    node.Next = list1
-  } else {
-    node.Next = list2
-  }
+	if list1 != nil {
+		node.Next = list1
+	} else {
+		node.Next = list2
+	}
 	return dummy.Next
 }
 

@@ -205,24 +205,46 @@ func mergeTwoLists(list1 *ListNode, list2 *ListNode) *ListNode {
 
 // https://leetcode.com/problems/merge-k-sorted-lists/
 func mergeKLists(lists []*ListNode) *ListNode {
-  n := len(lists)
-  if n == 0 {
-    return nil
-  }
-  if n == 1 {
-    return lists[0]
-  }
-  mid := n/2
-  l, r := mergeKLists(lists[:mid]), mergeKLists(lists[mid:])
-  return mergeTwoLists(l, r)
+	n := len(lists)
+	if n == 0 {
+		return nil
+	}
+	if n == 1 {
+		return lists[0]
+	}
+	mid := n / 2
+	l, r := mergeKLists(lists[:mid]), mergeKLists(lists[mid:])
+	return mergeTwoLists(l, r)
+}
+
+// https://leetcode.com/problems/search-in-rotated-sorted-array/
+func search(nums []int, target int) int {
+	n := len(nums)
+	l, r := 0, n-1
+	for l <= r {
+		mid := l + (r-l)/2
+		if nums[mid] == target {
+			return mid
+		}
+		if nums[l] <= nums[mid] {
+			if nums[l] <= target && target < nums[mid] {
+				r = mid
+			} else {
+				l = mid + 1
+			}
+		} else if nums[mid] <= nums[r] {
+			if nums[mid] < target && target <= nums[r] {
+				l = mid + 1
+			} else {
+				r = mid
+			}
+		}
+	}
+	return -1
 }
 
 func main() {
-	data := [][]int{{1, 4, 5}, {1, 3, 4}, {2, 6}}
-	lists := make([]*ListNode, 0, len(data))
-	for _, v := range data {
-		node := linkedlist.InsertList(v)
-		lists = append(lists, node)
-	}
-	fmt.Println(mergeKLists(lists))
+	data := []int{4, 5, 6, 7, 0, 1, 2}
+	target := 0
+	fmt.Println(search(data, target))
 }

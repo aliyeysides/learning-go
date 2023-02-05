@@ -203,8 +203,26 @@ func mergeTwoLists(list1 *ListNode, list2 *ListNode) *ListNode {
 	return dummy.Next
 }
 
+// https://leetcode.com/problems/merge-k-sorted-lists/
+func mergeKLists(lists []*ListNode) *ListNode {
+  n := len(lists)
+  if n == 0 {
+    return nil
+  }
+  if n == 1 {
+    return lists[0]
+  }
+  mid := n/2
+  l, r := mergeKLists(lists[:mid]), mergeKLists(lists[mid:])
+  return mergeTwoLists(l, r)
+}
+
 func main() {
-	l1 := linkedlist.InsertList([]int{1, 2, 4})
-	l2 := linkedlist.InsertList([]int{1, 3, 4})
-	fmt.Println(mergeTwoLists(l1, l2))
+	data := [][]int{{1, 4, 5}, {1, 3, 4}, {2, 6}}
+	lists := make([]*ListNode, 0, len(data))
+	for _, v := range data {
+		node := linkedlist.InsertList(v)
+		lists = append(lists, node)
+	}
+	fmt.Println(mergeKLists(lists))
 }

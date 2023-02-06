@@ -245,23 +245,25 @@ func search(nums []int, target int) int {
 
 // https://leetcode.com/problems/combination-sum/
 func combinationSum(candidates []int, target int) [][]int {
-	var dfs func(start int, remaining int, path []int, result *[][]int)
+  result := new([][]int)
 
-	dfs = func(start int, remaining int, path []int, result *[][]int) {
+	var dfs func(start int, remaining int, path []int)
+
+	dfs = func(i int, remaining int, path []int) {
 		if remaining == 0 {
-			*result = append(*result, path)
+			*result = append(*result, append(make([]int, 0), path...))
 			return
 		}
 
-		for j := start; j < len(candidates); j++ {
+		for j := i; j < len(candidates); j++ {
 			if remaining-candidates[j] >= 0 {
-				dfs(j, remaining-candidates[j], append(path, candidates[j]), result)
+				dfs(j, remaining-candidates[j], append(path, candidates[j]))
 			}
 		}
+    return
 	}
 
-	result := new([][]int)
-	dfs(0, target, nil, result)
+	dfs(0, target, nil)
 	return *result
 }
 

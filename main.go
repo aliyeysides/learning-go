@@ -254,16 +254,15 @@ func combinationSum(candidates []int, target int) [][]int {
 		}
 
 		for j := start; j < len(candidates); j++ {
-			fmt.Println(start, candidates[start:], path)
 			if remaining-candidates[j] >= 0 {
 				dfs(j, remaining-candidates[j], append(path, candidates[j]), result)
 			}
 		}
 	}
 
-	result := make([][]int, 0)
-	dfs(0, target, nil, &result)
-	return result
+	result := new([][]int)
+	dfs(0, target, nil, result)
+	return *result
 }
 
 func main() {

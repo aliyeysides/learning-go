@@ -244,49 +244,30 @@ func search(nums []int, target int) int {
 }
 
 // https://leetcode.com/problems/combination-sum/
-func combinationSumDFS(start int, candidates []int, path []int, remaining int, answers [][]int) [][]int {
-	if remaining == 0 {
-		answers = append(answers, path)
-		return answers
-	}
-
-	for i, num := range candidates[start:] {
-		if remaining-num >= 0 {
-			answers = combinationSumDFS(i, candidates, append(path, num), remaining-num, answers)
-		}
-	}
-	return answers
-}
-
 func combinationSum(candidates []int, target int) [][]int {
+	var dfs func(start int, remaining int, path []int, result *[][]int)
 
-	var dfs func(start int, path []int, remaining int, answers [][]int) [][]int
-
-	dfs = func(start int, path []int, remaining int, answers [][]int) [][]int {
+	dfs = func(start int, remaining int, path []int, result *[][]int) {
 		if remaining == 0 {
-			answers = append(answers, path)
-			return answers
+			*result = append(*result, path)
+			return
 		}
 
-		for i, num := range candidates[start:] {
-			if remaining-num >= 0 {
-				answers = dfs(i, append(path, num), remaining-num, answers)
+		for j := start; j < len(candidates); j++ {
+			fmt.Println(start, candidates[start:], path)
+			if remaining-candidates[j] >= 0 {
+				dfs(j, remaining-candidates[j], append(path, candidates[j]), result)
 			}
 		}
-		return answers
 	}
 
-	var path []int
-	var ans [][]int
-	var start int
-
-	res := dfs(start, path, target, ans)
-	return res
+	result := make([][]int, 0)
+	dfs(0, target, nil, &result)
+	return result
 }
 
 func main() {
-	// data := []int{2, 3, 6, 7}
-	data := []int{2, 3, 5}
-	target := 8
+	data := []int{7, 3, 2}
+	target := 18
 	fmt.Println(combinationSum(data, target))
 }

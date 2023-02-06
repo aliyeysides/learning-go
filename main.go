@@ -243,8 +243,49 @@ func search(nums []int, target int) int {
 	return -1
 }
 
+// https://leetcode.com/problems/combination-sum/
+func combinationSumDFS(start int, candidates []int, path []int, remaining int, answers [][]int) [][]int {
+	if remaining == 0 {
+		answers = append(answers, path)
+		return answers
+	}
+
+	for i, num := range candidates[start:] {
+		if remaining-num >= 0 {
+			answers = combinationSumDFS(i, candidates, append(path, num), remaining-num, answers)
+		}
+	}
+	return answers
+}
+
+func combinationSum(candidates []int, target int) [][]int {
+	var path []int
+	var ans [][]int
+	var start int
+
+	var dfs func(start int, path []int, remaining int, answers [][]int) [][]int
+
+	dfs = func(start int, path []int, remaining int, answers [][]int) [][]int {
+		if remaining == 0 {
+			answers = append(answers, path)
+			return answers
+		}
+
+		for i, num := range candidates[start:] {
+			if remaining-num >= 0 {
+				answers = dfs(i, append(path, num), remaining-num, answers)
+			}
+		}
+		return answers
+	}
+
+	res := dfs(start, path, target, ans)
+	return res
+}
+
 func main() {
-	data := []int{4, 5, 6, 7, 0, 1, 2}
-	target := 0
-	fmt.Println(search(data, target))
+	// data := []int{2, 3, 6, 7}
+	data := []int{2, 3, 5}
+	target := 8
+	fmt.Println(combinationSum(data, target))
 }

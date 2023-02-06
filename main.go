@@ -259,9 +259,6 @@ func combinationSumDFS(start int, candidates []int, path []int, remaining int, a
 }
 
 func combinationSum(candidates []int, target int) [][]int {
-	var path []int
-	var ans [][]int
-	var start int
 
 	var dfs func(start int, path []int, remaining int, answers [][]int) [][]int
 
@@ -278,6 +275,10 @@ func combinationSum(candidates []int, target int) [][]int {
 		}
 		return answers
 	}
+
+	var path []int
+	var ans [][]int
+	var start int
 
 	res := dfs(start, path, target, ans)
 	return res

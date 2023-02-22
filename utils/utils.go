@@ -22,35 +22,42 @@ func Min(x, y int) int {
 }
 
 // comma inserts commas in a non-negative decimal integer string
-func comma(s string) string {
-  n := len(s)
-  if n <= 3 {
-    return s
-  }
-  return comma(s[:n-3]) + "," + s[n-3:]
+func Comma(s string) string {
+	n := len(s)
+	if n <= 3 {
+		return s
+	}
+	return Comma(s[:n-3]) + "," + s[n-3:]
 }
 
 // basename removes directory components and a .suffix.
 // e.g., a => a, a.go => a, a/b/c/go => c, a/b.c.go => b.c
-func basename(s string) string {
-  slash := strings.LastIndex(s, "/") // --1 if "/" not found
-  s = s[slash+1:]
-  if dot := strings.LastIndex(s, "."); dot >= 0 {
-    s = s[:dot]
-  }
-  return s
+func Basename(s string) string {
+	slash := strings.LastIndex(s, "/") // --1 if "/" not found
+	s = s[slash+1:]
+	if dot := strings.LastIndex(s, "."); dot >= 0 {
+		s = s[:dot]
+	}
+	return s
 }
 
 // intsToString is like fmt.Sprint(values) but adds commas.
-func intsToString(values []int) string {
-  var buf bytes.Buffer
-  buf.WriteByte('[')
-  for i, v := range values {
-    if i > 0 {
-      buf.WriteString(", ")
-    }
-    fmt.Fprintf(&buf, "%d", v)
-  }
-  buf.WriteByte(']')
-  return buf.String()
+func IntsToString(values []int) string {
+	var buf bytes.Buffer
+	buf.WriteByte('[')
+	for i, v := range values {
+		if i > 0 {
+			buf.WriteString(", ")
+		}
+		fmt.Fprintf(&buf, "%d", v)
+	}
+	buf.WriteByte(']')
+	return buf.String()
+}
+
+// reverse reverses a slice of ints in place.
+func Reverse(s []int) {
+	for i, j := 0, len(s); i < j; i, j = i+1, j-1 {
+		s[i], s[j] = s[j], s[i]
+	}
 }

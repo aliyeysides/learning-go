@@ -13,7 +13,7 @@ func ExampleCard() {
 	// Queen of Clubs
 }
 
-func ExampleDeck() {
+func ExampleNew() {
 	fmt.Println(len(New()))
 
 	// Output:

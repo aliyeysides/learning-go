@@ -245,7 +245,7 @@ func search(nums []int, target int) int {
 
 // https://leetcode.com/problems/combination-sum/
 func combinationSum(candidates []int, target int) [][]int {
-  result := new([][]int)
+	result := new([][]int)
 
 	var dfs func(start int, remaining int, path []int)
 
@@ -260,7 +260,7 @@ func combinationSum(candidates []int, target int) [][]int {
 				dfs(j, remaining-candidates[j], append(path, candidates[j]))
 			}
 		}
-    return
+		return
 	}
 
 	dfs(0, target, nil)

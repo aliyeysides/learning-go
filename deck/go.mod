@@ -1,4 +1,4 @@
-module learning-go
+module deck
 
 go 1.20
 

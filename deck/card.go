@@ -42,5 +42,5 @@ func (c Card) String() string {
   if c.Suit == Joker {
     return c.Suit.String()
   }
-  return fmt.Sprintf("%s of %s", c.Rank.String(), c.Suit.String())
+  return fmt.Sprintf("%s of %ss", c.Rank.String(), c.Suit.String())
 }

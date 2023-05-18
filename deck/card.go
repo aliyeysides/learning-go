@@ -78,10 +78,10 @@ func DefaultSort(cards Deck) Deck {
 }
 
 func Sort(less func(cards Deck) func(i, j int) bool) func(Deck) Deck {
-  return func(cards Deck) Deck {
-    sort.Slice(cards, less(cards))
-    return cards
-  }
+	return func(cards Deck) Deck {
+		sort.Slice(cards, less(cards))
+		return cards
+	}
 }
 
 func Less(cards Deck) func(i, j int) bool {
@@ -95,13 +95,12 @@ func absRank(c Card) int {
 }
 
 func Shuffle(cards Deck) Deck {
-  ret := make(Deck, len(cards))
-  r := rand.New(rand.NewSource(time.Now().Unix()))
-  fmt.Println(r)
-  perm := r.Perm(len(cards))
-  for i, j := range perm {
-    ret[i] = cards[j]
-  }
-  return ret
+	ret := make(Deck, len(cards))
+	r := rand.New(rand.NewSource(time.Now().Unix()))
+	fmt.Println(r)
+	perm := r.Perm(len(cards))
+	for i, j := range perm {
+		ret[i] = cards[j]
+	}
+	return ret
 }
-

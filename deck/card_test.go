@@ -18,9 +18,11 @@ func ExampleCard() {
 
 func ExampleNew() {
 	fmt.Println(len(New()))
+	fmt.Println(New(Sort(Less))[0])
 
 	// Output:
 	// 52
+	// Ace of Spades
 }
 
 // Same test as above but done with testing package. This approach has the benefit of throwing specific error messages.
@@ -33,25 +35,25 @@ func TestNew(t *testing.T) {
 }
 
 func TestDefaultSort(t *testing.T) {
-  cards := New(DefaultSort)
-  // First card should be Ace of Spades
-  if cards[0] != (Card{Suit: Spade, Rank: Ace}) {
-    t.Error("Expected Ace of Spades as first card. Received:", cards[0])
-  }
+	cards := New(DefaultSort)
+	// First card should be Ace of Spades
+	if cards[0] != (Card{Suit: Spade, Rank: Ace}) {
+		t.Error("Expected Ace of Spades as first card. Received:", cards[0])
+	}
 }
 
 func TestSort(t *testing.T) {
-  cards := New(Sort(Less))
-  // First card should be Ace of Spades
-  if cards[0] != (Card{Suit: Spade, Rank: Ace}) {
-    t.Error("Expected Ace of Spades as first card. Received:", cards[0])
-  }
+	cards := New(Sort(Less))
+	// First card should be Ace of Spades
+	if cards[0] != (Card{Suit: Spade, Rank: Ace}) {
+		t.Error("Expected Ace of Spades as first card. Received:", cards[0])
+	}
 }
 
 func TestShuffle(t *testing.T) {
-  cards := New(DefaultSort, Shuffle)
-  // First card should not be Ace of Spades
-  if cards[0] == (Card{Suit: Spade, Rank: Ace}) {
-    t.Error("Expected Ace of Spades as first card. Received:", cards[0])
-  }
+	cards := New(DefaultSort, Shuffle)
+	// First card should not be Ace of Spades
+	if cards[0] == (Card{Suit: Spade, Rank: Ace}) {
+		t.Error("Expected Ace of Spades as first card. Received:", cards[0])
+	}
 }

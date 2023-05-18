@@ -57,8 +57,10 @@ func (c Card) String() string {
 	return fmt.Sprintf("%s of %ss", c.Rank.String(), c.Suit.String())
 }
 
-func New(opts ...func([]Card) []Card) []Card {
-	var cards []Card
+type Deck []Card
+
+func New(opts ...func(Deck) Deck) Deck {
+	var cards Deck
 	for _, suit := range suits {
 		for rank := minRank; rank <= maxRank; rank++ {
 			cards = append(cards, Card{Suit: suit, Rank: rank})
@@ -70,19 +72,19 @@ func New(opts ...func([]Card) []Card) []Card {
 	return cards
 }
 
-func DefaultSort(cards []Card) []Card {
+func DefaultSort(cards Deck) Deck {
 	sort.Slice(cards, Less(cards))
 	return cards
 }
 
-func Sort(less func(cards []Card) func(i, j int) bool) func([]Card) []Card {
-  return func(cards []Card) []Card {
+func Sort(less func(cards Deck) func(i, j int) bool) func(Deck) Deck {
+  return func(cards Deck) Deck {
     sort.Slice(cards, less(cards))
     return cards
   }
 }
 
-func Less(cards []Card) func(i, j int) bool {
+func Less(cards Deck) func(i, j int) bool {
 	return func(i, j int) bool {
 		return absRank(cards[i]) < absRank(cards[j])
 	}
@@ -92,8 +94,8 @@ func absRank(c Card) int {
 	return int(c.Suit)*int(maxRank) + int(c.Rank)
 }
 
-func Shuffle(cards []Card) []Card {
-  ret := make([]Card, len(cards))
+func Shuffle(cards Deck) Deck {
+  ret := make(Deck, len(cards))
   r := rand.New(rand.NewSource(time.Now().Unix()))
   fmt.Println(r)
   perm := r.Perm(len(cards))

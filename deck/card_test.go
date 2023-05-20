@@ -57,3 +57,17 @@ func TestShuffle(t *testing.T) {
 		t.Error("Expected first and second card to not be Ace of Spades and Two of Spades. Received Both")
 	}
 }
+
+func TestJokers(t *testing.T) {
+  cards := New(Jokers(3))
+  // Should be three jokers in a new deck
+  count := 0
+  for _, card := range cards {
+    if card.Suit == Joker {
+      count++
+    }
+  }
+  if count != 3 {
+    t.Error("Expected 3 Jokers. Received:", count)
+  }
+}

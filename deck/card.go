@@ -103,3 +103,12 @@ func Shuffle(cards Deck) Deck {
 	}
 	return ret
 }
+
+func Jokers(n int) func(Deck) Deck {
+	return func(cards Deck) Deck {
+		for i := 0; i < n; i++ {
+			cards = append(cards, Card{Rank: Rank(i), Suit: Joker})
+		}
+		return cards
+	}
+}

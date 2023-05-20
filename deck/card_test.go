@@ -53,7 +53,7 @@ func TestSort(t *testing.T) {
 func TestShuffle(t *testing.T) {
 	cards := New(DefaultSort, Shuffle)
 	// First card should not be Ace of Spades
-	if cards[0] == (Card{Suit: Spade, Rank: Ace}) {
-		t.Error("Expected Ace of Spades as first card. Received:", cards[0])
+	if cards[0] == (Card{Suit: Spade, Rank: Ace}) && cards[1] == (Card{Suit: Spade, Rank: Two }) {
+		t.Error("Expected first and second card to not be Ace of Spades and Two of Spades. Received Both")
 	}
 }

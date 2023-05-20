@@ -97,7 +97,6 @@ func absRank(c Card) int {
 func Shuffle(cards Deck) Deck {
 	ret := make(Deck, len(cards))
 	r := rand.New(rand.NewSource(time.Now().Unix()))
-	fmt.Println(r)
 	perm := r.Perm(len(cards))
 	for i, j := range perm {
 		ret[i] = cards[j]

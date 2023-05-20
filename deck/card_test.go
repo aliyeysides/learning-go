@@ -53,34 +53,42 @@ func TestSort(t *testing.T) {
 func TestShuffle(t *testing.T) {
 	cards := New(DefaultSort, Shuffle)
 	// First card should not be Ace of Spades
-	if cards[0] == (Card{Suit: Spade, Rank: Ace}) && cards[1] == (Card{Suit: Spade, Rank: Two }) {
+	if cards[0] == (Card{Suit: Spade, Rank: Ace}) && cards[1] == (Card{Suit: Spade, Rank: Two}) {
 		t.Error("Expected first and second card to not be Ace of Spades and Two of Spades. Received Both")
 	}
 }
 
 func TestJokers(t *testing.T) {
-  cards := New(Jokers(3))
-  // Should be three jokers in a new deck
-  count := 0
-  for _, card := range cards {
-    if card.Suit == Joker {
-      count++
-    }
-  }
-  if count != 3 {
-    t.Error("Expected 3 Jokers. Received:", count)
-  }
+	cards := New(Jokers(3))
+	// Should be three jokers in a new deck
+	count := 0
+	for _, card := range cards {
+		if card.Suit == Joker {
+			count++
+		}
+	}
+	if count != 3 {
+		t.Error("Expected 3 Jokers. Received:", count)
+	}
 }
 
 func TestFilter(t *testing.T) {
-  filter := func(card Card) bool {
-    return card.Rank == Two || card.Rank == Three
-  }
-  cards := New(Filter(filter))
-  // Should be no twos or threes in a new deck
-  for _, card := range cards {
-    if card.Rank == Two || card.Rank == Three {
-      t.Error("Expected to filter out twos and threes. Received:", card)
-    }
-  }
+	filter := func(card Card) bool {
+		return card.Rank == Two || card.Rank == Three
+	}
+	cards := New(Filter(filter))
+	// Should be no twos or threes in a new deck
+	for _, card := range cards {
+		if card.Rank == Two || card.Rank == Three {
+			t.Error("Expected to filter out twos and threes. Received:", card)
+		}
+	}
+}
+
+func TestDecks(t *testing.T) {
+	cards := New(Decks(3))
+	// Should be 156 cards in a new deck
+	if len(cards) != 156 {
+		t.Error("Expected 156 cards. Received:", len(cards))
+	}
 }

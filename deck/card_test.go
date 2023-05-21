@@ -2,7 +2,9 @@ package deck
 
 import (
 	"fmt"
+	"math/rand"
 	"testing"
+	"time"
 )
 
 func ExampleCard() {
@@ -51,7 +53,8 @@ func TestSort(t *testing.T) {
 }
 
 func TestShuffle(t *testing.T) {
-	cards := New(DefaultSort, Shuffle)
+  source := rand.NewSource(time.Now().Unix())
+	cards := New(DefaultSort, Shuffle(source))
 	// First card should not be Ace of Spades
 	if cards[0] == (Card{Suit: Spade, Rank: Ace}) && cards[1] == (Card{Suit: Spade, Rank: Two}) {
 		t.Error("Expected first and second card to not be Ace of Spades and Two of Spades. Received Both")

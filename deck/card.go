@@ -6,7 +6,6 @@ import (
 	"fmt"
 	"math/rand"
 	"sort"
-	"time"
 )
 
 type Suit uint8
@@ -94,14 +93,16 @@ func absRank(c Card) int {
 	return int(c.Suit)*int(maxRank) + int(c.Rank)
 }
 
-func Shuffle(cards Deck) Deck {
-	ret := make(Deck, len(cards))
-	r := rand.New(rand.NewSource(time.Now().Unix()))
-	perm := r.Perm(len(cards))
-	for i, j := range perm {
-		ret[i] = cards[j]
+func Shuffle(s rand.Source) func(Deck) Deck {
+	return func(cards Deck) Deck {
+		ret := make(Deck, len(cards))
+		r := rand.New(s)
+		perm := r.Perm(len(cards))
+		for i, j := range perm {
+			ret[i] = cards[j]
+		}
+		return ret
 	}
-	return ret
 }
 
 func Jokers(n int) func(Deck) Deck {

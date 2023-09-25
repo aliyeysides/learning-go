@@ -1,9 +1,9 @@
 
 status:
-	goose -dir ./migrations postgres "$(shell cat .env.db)" status
+	goose -dir ./migrations status
 
 create:
-	goose -dir ./migrations postgres "$(shell cat .env.db)" create $(name) sql
+	goose -dir ./migrations create $(name) 
 
 migrate:
-	goose -dir ./migrations postgres "$(shell cat .env.db)" up
+	goose -dir ./migrations up

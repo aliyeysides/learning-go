@@ -6,6 +6,8 @@ import (
 	"log/slog"
 	"net/http"
 	"os"
+
+	"github.com/aliyeysides/snippetbox/internal/models"
 )
 
 func main() {
@@ -26,7 +28,8 @@ func main() {
 	defer dbpool.Close()
 
 	app := &Application{
-		logger: logger,
+		logger:   logger,
+		snippets: &models.SnippetModel{DB: dbpool},
 	}
 
 	mux := app.routes()

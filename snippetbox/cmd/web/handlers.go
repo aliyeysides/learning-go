@@ -6,6 +6,7 @@ import (
 	"log/slog"
 	"net/http"
 	"strconv"
+	"time"
 
 	"github.com/aliyeysides/snippetbox/internal/models"
 )
@@ -59,9 +60,10 @@ func (app *Application) snippetCreate(w http.ResponseWriter, r *http.Request) {
 
 	title := "my first snippet"
 	content := "test content"
-	expires := 7
+	expires := time.Now()
 
 	id, err := app.snippets.Insert(title, content, expires)
+	fmt.Printf("err: %v\n", err)
 	if err != nil {
 		app.serveError(w, r, err)
 		return

@@ -2,6 +2,8 @@ package models
 
 import (
 	"context"
+	"database/sql"
+	"errors"
 	"fmt"
 	"time"
 
@@ -29,12 +31,27 @@ func (m *SnippetModel) Insert(title string, content string, expires time.Time) (
 		return 0, err
 	}
 
-  fmt.Printf("result::: %v", result)
+	fmt.Printf("result::: %v", result)
 	return 0, nil
 }
 
-func (m *SnippetModel) Get(id int) (*Snippet, error) {
-	return nil, nil
+func (m *SnippetModel) Get(id int) (Snippet, error) {
+	stmt := `SELECT id, title, content, created_at, updated_at, expires_at FROM snippets WHERE expires_at > CURRENT_TIMESTAMP AND id = $1`
+
+	row := m.DB.QueryRow(context.Background(), stmt, id)
+
+	var s Snippet
+
+	err := row.Scan(&s.ID, &s.Title, &s.Content, &s.Created, &s.Updated, &s.Expires)
+	if err != nil {
+		if errors.Is(err, sql.ErrNoRows) {
+			return Snippet{}, ErrNoRecord
+		} else {
+			return Snippet{}, err
+		}
+	}
+
+	return s, nil
 }
 
 func (m *SnippetModel) Latest() ([]Snippet, error) {

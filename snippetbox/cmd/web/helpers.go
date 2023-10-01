@@ -5,7 +5,7 @@ import (
 	"runtime/debug"
 )
 
-func (app *Application) serveError(w http.ResponseWriter, r *http.Request, err error) {
+func (app *Application) serverError(w http.ResponseWriter, r *http.Request, err error) {
 	var (
 		method = r.Method
 		uri    = r.URL.RequestURI()

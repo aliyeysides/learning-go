@@ -1,6 +1,7 @@
 package main
 
 import (
+	"errors"
 	"fmt"
 	"html/template"
 	"log/slog"
@@ -30,13 +31,13 @@ func (app *Application) home(w http.ResponseWriter, r *http.Request) {
 
 	ts, err := template.ParseFiles(files...)
 	if err != nil {
-		app.serveError(w, r, err)
+		app.serverError(w, r, err)
 		return
 	}
 
 	err = ts.ExecuteTemplate(w, "base", nil)
 	if err != nil {
-		app.serveError(w, r, err)
+		app.serverError(w, r, err)
 		return
 	}
 }
@@ -48,7 +49,17 @@ func (app *Application) snippetView(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	fmt.Fprintf(w, "Display a specific snippet with ID %d...", id)
+  snippet, err := app.snippets.Get(id)
+  if err != nil {
+    if errors.Is(err, models.ErrNoRecord) {
+      app.notFound(w)
+    } else {
+      app.serverError(w, r, err)
+    }
+    return
+  }
+
+  fmt.Fprintf(w, "%+v", snippet)
 }
 
 func (app *Application) snippetCreate(w http.ResponseWriter, r *http.Request) {
@@ -65,7 +76,7 @@ func (app *Application) snippetCreate(w http.ResponseWriter, r *http.Request) {
 	id, err := app.snippets.Insert(title, content, expires)
 	fmt.Printf("err: %v\n", err)
 	if err != nil {
-		app.serveError(w, r, err)
+		app.serverError(w, r, err)
 		return
 	}
 
